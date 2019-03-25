@@ -6,3 +6,5 @@ This repository contains the analysis of a customer churn dataset for a telcom c
 MOTIVATION 
 
 CHURN 
+
+OTHER FILES INTRO
