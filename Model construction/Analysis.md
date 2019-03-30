@@ -33,6 +33,15 @@ Note that the original data was slightly modifed to facilitate its comprehension
 There are only 11 missing values, all of them for the TotalCharges feature. They affect exclusively customers with zero tenure, one-year or two-years contract and monthly charges strictly greater than 0. It is possible that these consumers have never paid what they owe the company. These observations are considered to be involuntary churn and therefore, as mentioned earlier, will be excluded from the analysis. No outliers are found (for continuous variables), meaning that the quasi totality of the dataset is considered. 
 
 
+## XGBoost 
+
+I chose to implement XGBoost (or eXtreme Gradient Boosting), which is a very most powerful method that enables to reach state-of-the art results for classification and regression problems with tabular data. It is more useful than neural nets in the regime of limited training data, little training time and little expertise for parameter tuning. Because of this, it is ubiquitous in Kaggle solutions and widely used by firms in the professional world. 
+
+XGBoost belongs to the class of boosting methods. Let me quickly clarify the concept of boosting. It is an ensemble technique in which the predictors are not made independently, like bagging, but sequentially. It employs the logic in which the subsequent (weak) predictors learn from the mistakes of the previous (strong) predictors. 
+
+Very simply, XGBoost is an improved version of gradient boosting, which uses gradient descent algorithm to minimise the loss function when adding new weak predictors (decision trees for XGBoost). 
+It uses a more regularized model formalization to control over-fitting and employs a number of tricks that make it faster and more accurate than traditional gradient boosting. We count among them an approximate algorithm for split finding, a sparsity-aware algorithm to handle sparse data, a block structure for parallel learning or even a weighted quantile sketch for approximate tree learning. XGBoost also provides insights on cache access patterns, data compression and sharding to build a scalable tree boosting system. You should refer to the XGBoost paper <https://www.kdd.org/kdd2016/papers/files/rfp0697-chenAemb.pdf> to get more insights on those improvements. Understanding XGBoost is essential to the model explainability study. 
+
 
 ## Unbalanced repartition of the dataset
 
@@ -45,7 +54,7 @@ Comparing these two confusion matrices is very interesting as it illustrates the
 
 ## SMOTE 
 
-If you want to understand exactly what SMOTE does, I summarize its pseudo code below.
+If you would like to understand exactly what SMOTE does, I summarize its pseudo code below. This is based on the corresponding paper <https://arxiv.org/pdf/1106.1813.pdf>
 
 1. Split between training and test set; focus solely on the training set.
 2. Randomly pick a point from the minority class (churn).
