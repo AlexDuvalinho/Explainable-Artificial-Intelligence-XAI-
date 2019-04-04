@@ -4,7 +4,7 @@ These conclusions were all drawn from the graphs plotted using the avaiable Pyht
 
 
 ## Variables
-3 continuous variables, 7 binary dummy variable, 11 categorical variables 
+3 continuous variables, 7 binary dummy variables, 11 categorical variables
 
 customerID - Customer ID\
 gender - Whether the customer is a male or a female\
@@ -38,11 +38,11 @@ We slightly modify the original data in order to facilitate its comprehension wh
 
 ## Visualisation and interpretation 
 
-Churn columns tells us about the number of Customers who left within the last month: around 27%. We thus have a binary classification problem with a slightly unbalanced target. (graph)
+Churn columns tells us about the number of customers who left within the last month: around 27%. We thus have a binary classification problem with an unbalanced target. 
 
 ### Continuous variables 
 
-The probability density distribution of the three continuous variables, namely tenure, MonthlyCharges and TotalCharges, can be estimated using the seaborn kdeplot function and is presented in the APPENDIX A. (graph x3) \
+The probability density distribution of the three continuous variables, namely tenure, MonthlyCharges and TotalCharges, can be estimated using the seaborn kdeplot function. \
 From the plots, we can conclude that: 
 * Recent clients are more likely to churn 
 * Clients with higher monthly charges are also more likely to churn 
@@ -54,33 +54,32 @@ From the plots, we can conclude that:
 
 #### Demography
 
-*gender* is not useful: the churn percentage is almost equal in case of Male and Females. (graph)\
-*SeniorCitizen* represent only 16% of customers but have a much higher churn rate: 42% against 23% for non-senior customers. (graph)\
-*partner*: customers without partners are more likely to churn. (graph + distrib. binary var. (non)churn)\
-*Dependents*: similarly for customers without dependents. (graph + distrib. binary var. (non)churn)
+*gender* does not appear useful: the churn percentage is almost equal for males and females. \
+*SeniorCitizen* represents only 16% of customers but has a much higher churn rate, that is 42% against 23% for non-senior customers. \
+*partner*: customers without partners are more likely to churn. \
+*Dependents*: similarly for customers without dependents.
 
 
 #### Services
 
 Let's now look at the two main services that customers are using, namely phone and internet. Note that the later includes additional options such as OnlineBackup or OnlineSecurity. 
 
-*PhoneService* is not useful. (graph). Few customers don’t have phone service. (9%) 
+*PhoneService* does not appear useful. Note that only few customers don’t have phone service. (9%) 
 
 *MultipleLines*\
-For consumers, having multiple phone lines have practically no correlation with attrition; maybe a slightly higher churn rate (graph) 
-This could be due to the fact that having multiple lines increases monthly charges (graph).
-No (general) correlation with tenure. Nevertheless, it is clearly visible that churning customers having multiple phone lines are principally new customers. (graph)
-No correlation with dependent or partners. 
-
+For consumers, having multiple phone lines has practically no correlation with attrition; maybe a slightly higher churn rate.
+This could be due to the fact that having multiple lines increases monthly charges.\
+It is not correlated with tenure, dependents or partners. Nevertheless, it is clearly visible that churners having multiple phone lines are principally new customers.
+ 
 *InternetService*\
-Very useful feature. 3 categories (DSL, Fiber optic, No) (2 graphs + distrib. binary var. (non)churn) \
-Clients without internet have a very low churn rate. Represent 22% proportion of customers, where only 2% churn. \
-Customers with fiber optic are very likely to churn. 43% of total customers. (18% churn, 25% don’t) \
+Very informative feature. 3 categories (DSL, Fiber optic, No) \
+Clients without internet have a very low churn rate. They represent 22% of the dataset, where only 2% churn and 20% does not. \
+Customers with fiber optic are very likely to churn. 43% of customers in total, including 18% that churn and 25% that don’t. \
 Those with DSL connection usually don’t churn. (27% don’t, 7% do) \
 It's interesting how customers with DSL (slower connection) and higher charges are less probable to churn. \
 Relation to numerical features: using Fiber optic yields much higher monthly charges (around 90) than DSL (around 55) and no Internet (20). 
 
-Concerning the six additional services (for customers without/with internet): (2 graphs). \
+Concerning the six additional services (for customers without/with internet): \
 *StreamingTV* and *StreamingMovies* are not predictive for churn. Used by 50% of customer base.\
 Customers subscribed to *OnlineSecurity*, *OnlineBackup*, *DeviceProtection*, *TechSupport*, are less likely to churn. An important proportion of customers take each service but less than half.\
 They all are seriously correlated between each other and with monthly charges, which makes sense. 
@@ -90,44 +89,40 @@ They all are seriously correlated between each other and with monthly charges, w
 
 *Contract*\
 A larger percent of customers with monthly subscription have left compared to customers with one year contract. This is even more accentuated compared to two-years contract, which is quite logic.\
-One and two year contracts probably have contractual fines and therefore customers have to wait until the end of contract to churn. A time-series dataset (survival analysis) would be better to understand this kind of behaviour.\
-Relation with numerical features: longer contracts are more affected by higher monthly charges (for churn rate). Potentially because they subscribe to some services, which is itself correlated with high monthly charges. 
+One-year and two-year contracts probably have contractual fines and therefore customers have to wait until the end of the contract to churn. A time-series dataset (survival analysis) would be better to understand this kind of behaviour.\
 
 *PaymentMethod*\
-It is spit into four categories: electronic check, mail check, credit card, bank transfer
-The preferred payment method is Electronic check with around 35% of customers. This method has a very high churn rate compared to other methods (which are used by an equal amount of  individuals and all present a similar churn rate).\
-No correlation with contract. Longer do not favour a particular type of payment.\
-Relation with cts features.\
-There is a huge gap in monthly charges between customers that churn and those that don't with respect to Mailed Check. Still, mailed checks have lower charges (for both types of clients).\
-When plotted against tenure (and churn), seems normal. Older customer churn less for all types of payement. Similar proportion for each category.
+It is spit into four categories: electronic check, mail check, credit card and bank transfer. \
+The preferred payment method is electronic check with approximately 35% of customers. It has a very high churn rate compared to the other methods, which are used by an equal amount of individuals and all present a similar churn rate.\
+There is no special correlation with contract and tenure. Longer contracts or higher tenure do not favour a particular type of payment.\
 
 *PaperlessBilling*\
-Paperless billing customers are more likely to churn. Probably because it is easier to do and because it is correlated with smaller time-length contracts. 
+Customers with paperless billing are more likely to churn, probably because it is easier to do and because it is correlated with smaller time-length contracts. 
 
 
 
 
 ### Correlation matrix
 
-There is no multicollinearity. We simply notice a decent correlation between Contract and all additional services (linked to Internet). This is not too surprising. Individuals that subscribe to this kind of offer OnlineBackup, OnlineSecurity or StreamingTV are usually long-term customers, meaning having one-year or two-years contracts. It is rare to subscribe to this type of offers only for a month.\
-—> Disappears with feature engineering (encode into binary variables).\
-—> However, strong correlation between these services remains. 
+We simply notice a decent correlation between Contract and all additional services (linked to Internet). This is not too surprising. Individuals that subscribe to this kind of offer (OnlineBackup, OnlineSecurity or StreamingTV) are usually long-term customers, meaning having one-year or two-year contracts. It is rare to subscribe to this type of offer only for a month.\
+When multiple category categorical variables are one-hot-encoded, this correlation disappears.\
+However, a strong correlation between the services remains.
 
-Correlation matrix   (2 graphs) \ 
+Correlation matrix \ 
 Nothing really new to note. There does not seem to be any strong correlation, else than between 
 * tenure, TotalCharges, MonthlyCharges
 * MonthlyCharges and FiberOptic / No_internet
-* small extent; MultipleLines is correlated with FiberOptic  (positively) and DSL (-)
-* correlation between all additional services. 
+* MultipleLines with FiberOptic (positively) and DSL (-) (in a smaller extent).
+* all additional services (in a smaller extent).
 
 
 ### Summary statistics 
 
 Distribution of binary variables\
 We have figures here and not proportion, which makes us notice the unbalanced repartition of the dataset. \
-On the first radar, distribution of variables are only for non churn customers (0s and 1s). The other is similar but for churn customers. Comparing them allows to notice the distributions that strongly change from churners to non-churners. These variables will probably be the most helpful in our classification task. 
+On the first radar, distribution of variables concerns solely customers who don't churn (0s and 1s). The other is similar but for churners. Comparing them allows to notice the variables whose distribution strongly changes from churners to non-churners. These variables will probably be the most helpful in our classification task. 
 
-Big differences between the two radars are FiberOptic, MtM (Contract) and ElectronicCheck (PaymentMethod) \
-In a smaller extent: Partners, Dependents, TechSupport and PaperlessBilling 
+Big differences between the two radars are visible for FiberOptic, Month-to-month (Contract) and ElectronicCheck (PaymentMethod) \
+In a smaller extent: TechSupport and PaperlessBilling 
 
 This pretty much summarises what we found above and what we think the important variables will be. It excludes tenure and MonthlyCharges, which also seem important, but continuous. 
